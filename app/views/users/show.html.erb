@@ -1,0 +1,14 @@
+<div>
+  Username: <%= @user.nickname %>
+</div>
+<div>
+  Email: <%= @user.email %>
+</div>
+<div>
+  Bio: <%= @user.bio %>
+</div>
+<div>
+  Currently playing: <% @user.games.each do |game| %>
+    <%= link_to game.title, game %>
+  <% end %>
+</div>

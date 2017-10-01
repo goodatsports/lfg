@@ -1,0 +1,8 @@
+<div>
+  Title: <%= @game.title %>
+</div>
+<div>
+  Users playing: <% @game.users.each do |user| %>
+    <%= link_to user.nickname, user %>
+  <% end %>
+</div>
