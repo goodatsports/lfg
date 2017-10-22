@@ -6,9 +6,19 @@
 </div>
 <div>
   Bio: <%= @user.bio %>
+  <% if @user.id == current_user.id %>
+    <%= form_tag "/users/#{@user.id}", method: :put do %>
+      <%= text_field_tag :bio, @user.bio %>
+      <%= hidden_field_tag(:user_id, @user.id) %>
+      <%= submit_tag "Edit bio"%>
+    <% end %>
+  <% end %>
 </div>
 <div>
-  Currently playing: <% @user.games.each do |game| %>
-    <%= link_to game.title, game %>
+  Currently playing: 
+  <ul>
+    <% @user.games.each do |game| %>
+    <li><%= link_to game.title, game %></li>
   <% end %>
+  </ul>
 </div>
