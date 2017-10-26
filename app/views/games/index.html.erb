@@ -1,5 +1,10 @@
-<% @games.each do |game| %>
-<div>
-  <%= link_to game.title, game %>
- </div>
-<% end %>
+<div id="app">
+  {{games}}
+  <div>
+    <ul>
+  <% @games.each do |game| %>
+    <li><%= link_to game.title, game %></li>
+  <% end %>
+  </ul>
+  </div>
+</div>

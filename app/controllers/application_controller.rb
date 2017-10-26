@@ -1,5 +1,5 @@
 class ApplicationController < ActionController::Base
-  require 'igdb_wrapper_patch.rb'
+  #require 'igdb_wrapper_patch.rb'
   protect_from_forgery with: :exception
 
   def current_user
