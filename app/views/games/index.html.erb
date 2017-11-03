@@ -1,10 +1,13 @@
 <div id="app">
-  {{games}}
+  <input type="text" placeholder="search" v-model="search">
+  Order By: <input v-on:click="changeOrderAttr('popularity')" value="popularity" type="radio" v-model="orderAttr">
+  <label for="popularity">Popularity</label>
+  <input v-on:click="changeOrderAttr('title')" value="title" type="radio" v-model="orderAttr">
+  <label for="name">Title</label><br>
+  
   <div>
     <ul>
-  <% @games.each do |game| %>
-    <li><%= link_to game.title, game %></li>
-  <% end %>
+      <li v-for="game in filteredGames"><a v-bind:href=" '/games/'+ game.id">{{game.title}}</a></li>
   </ul>
   </div>
 </div>

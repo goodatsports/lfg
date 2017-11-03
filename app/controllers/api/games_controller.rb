@@ -1,10 +1,13 @@
-class GamesController < ApplicationController
+class Api::GamesController < ApplicationController
   def index
     @games = Game.all
+    render 'index.json.jbuilder'
   end
 
   def show
     @game = Game.find_by(id: params[:id])
+    if(!@game)
+      @game = Game.create(api_id: params[:id], id: params[:id])
     end
 
     # API call to IGDB for Game page
@@ -22,6 +25,11 @@ class GamesController < ApplicationController
     genre_ids.each do |genre_id|
       res = Unirest.get "#{ENV['API_URL']}/genres/#{genre_id}", headers:{ "Accept" => "application/json", "user-key" => ENV['API_KEY']}
       @genres << res.body[0]["name"]
+    end
+
+    # Update backend if game is not already in local database
+    if (@game.title != @response["name"].to_s)
+      Game.update(@game.id, title: @response["name"])
     end
   end
 end

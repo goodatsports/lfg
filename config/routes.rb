@@ -6,4 +6,8 @@ Rails.application.routes.draw do
   get '/logout' => 'sessions#destroy'
   post '/user_games' => 'user_games#create'
   get '/signup' => 'users#new'
+
+  namespace :api do
+    get '/games' => 'games#index'
+  end
 end
