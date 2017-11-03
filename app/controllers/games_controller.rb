@@ -5,7 +5,6 @@ class GamesController < ApplicationController
 
   def show
     @game = Game.find_by(id: params[:id])
-    end
 
     # API call to IGDB for Game page
     @response = (Unirest.get "#{ENV['API_URL']}/games/#{@game.api_id}", headers:{ "Accept" => "application/json", "user-key" => ENV['API_KEY']}).body[0]

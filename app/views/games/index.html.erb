@@ -1,13 +1,18 @@
 <div id="app">
   <input type="text" placeholder="search" v-model="search">
-  Order By: <input v-on:click="changeOrderAttr('popularity')" value="popularity" type="radio" v-model="orderAttr">
+  Order By: <input v-on:click="changeOrderAttr('popularity')" value="popularity" type="radio" v-model="selectedOrderAttr">
   <label for="popularity">Popularity</label>
-  <input v-on:click="changeOrderAttr('title')" value="title" type="radio" v-model="orderAttr">
+  <input v-on:click="changeOrderAttr('title')" value="title" type="radio" v-model="selectedOrderAttr">
   <label for="name">Title</label><br>
-  
+
+  <select v-model="orderAscending">
+    <option v-bind:value="false">Descending</option>
+    <option v-bind:value="true">Ascending</option>
+  </select>
+
   <div>
     <ul>
       <li v-for="game in filteredGames"><a v-bind:href=" '/games/'+ game.id">{{game.title}}</a></li>
-  </ul>
+    </ul>
   </div>
 </div>

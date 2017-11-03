@@ -5,7 +5,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
     data: { 
       games: [],
       search: '',
-      orderAttr: 'popularity',
+      selectedOrderAttr: 'popularity',
       orderAscending: false
 
     },
@@ -16,8 +16,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
     },
     methods: {
       changeOrderAttr: function(attribute) {
-        this.orderAttr = attribute;
-        console.log(this.orderAttr);
+        this.selectedOrderAttr = attribute;
       }
     },
     computed: {
@@ -32,17 +31,17 @@ document.addEventListener("DOMContentLoaded", function(event) {
           }
         }
         return result.sort(function(game1, game2) {
-          if (this.orderAttr == 'title') {
+          if (this.selectedOrderAttr == 'title') {
             if (this.orderAscending) {
-              return game1[this.orderAttr].localeCompare(game2[this.orderAttr]);
+              return game2[this.selectedOrderAttr].localeCompare(game1[this.selectedOrderAttr]);
             } else {
-              return game2[this.orderAttr].localeCompare(game1[this.orderAttr]);
+              return game1[this.selectedOrderAttr].localeCompare(game2[this.selectedOrderAttr]);
             }
           } else {
             if (this.orderAscending) {
-              return game1[this.orderAttr] > game2[this.orderAttr];
+              return game1[this.selectedOrderAttr] - game2[this.selectedOrderAttr];
             } else {
-              return game1[this.orderAttr] < game2[this.orderAttr];
+              return game2[this.selectedOrderAttr] - game1[this.selectedOrderAttr];
             }
           }
         }.bind(this));
