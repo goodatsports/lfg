@@ -7,7 +7,7 @@ user = User.create(
 
 50.times do
   new_user = User.new(
-    nickname: "#{Faker::Hipster.word}_#{Faker::Name.first_name}")
+    nickname: "#{Faker::Hipster.word}_#{Faker::Name.first_name.downcase}")
   new_user.update(
     email: "#{new_user.nickname}@gmail.com",
     password: BCrypt::Password.create(new_user.id),
@@ -40,7 +40,7 @@ end
 
 
 
-200.times do
+300.times do
   user_game = UserGame.create(
     user_id: Random.rand(User.count - 1) + 1,
     game_id: Random.rand(Game.count - 1) + 1)
