@@ -7,6 +7,9 @@
 <div>
   Bio: <%= @user.bio %>
   <% if @user.id == current_user.id %>
+    <% if !@user.steam_id %>
+      <li><%= link_to 'Log In via Steam', '/auth/steam' %></li>
+    <% end %>
     <%= form_tag "/users/#{@user.id}", method: :put do %>
       <%= text_field_tag :bio, @user.bio %>
       <%= hidden_field_tag(:user_id, @user.id) %>

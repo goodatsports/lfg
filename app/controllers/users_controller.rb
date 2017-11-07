@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-
+  skip_before_action :verify_authenticity_token
   before_action :authenticate_user, except: [:create, :new]
 
   def index
@@ -31,9 +31,21 @@ class UsersController < ApplicationController
   end
 
   def update
-    user = User.find_by(id: params[:user_id])
-    User.update(user.id,
-      bio: params[:bio])
-    redirect_to "/users/#{user.id}"
-  end
+    begin
+     res = request.env['omniauth.auth']
+     id = res['uid']
+     info = res['info']
+    rescue
+      flash[:error] = "Can't authorize you..."
+    else
+      puts info
+      puts "STEAM ID: #{id}"
+      puts "NICKNAME: #{info['nickname']}"
+      puts "SUCCESS"
+    end
+     User.update(current_user.id,
+       steam_id: id)
+     flash[:success] = "Your steam account #{info['nickname']} is now linked, #{current_user.nickname}!"
+     redirect_to "/users/#{current_user.id}"
+   end
 end

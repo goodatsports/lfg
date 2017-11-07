@@ -39,7 +39,7 @@ offset = 0
 end
 
 
-
+# Seed associations between users and games
 300.times do
   user_game = UserGame.create(
     user_id: Random.rand(User.count - 1) + 1,
