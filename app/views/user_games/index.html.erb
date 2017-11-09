@@ -1,0 +1,7 @@
+<%= link_to 'Link your steam games!', "/users/#{current_user.id}/user_games/new" %>
+
+<ul>
+<% @games.each do |game| %>
+  <li><%= link_to "#{game.title}", "/games/#{game.id}"  %></li>
+<% end %> 
+</ul>

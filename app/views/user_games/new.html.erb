@@ -1,0 +1,6 @@
+<div id="usergames">
+  {{message}}
+  <ul>
+    <li v-for="game in games"><img v-bind:src="game['img_logo_url']">{{game.name}}</li>
+  </ul>
+</div>
