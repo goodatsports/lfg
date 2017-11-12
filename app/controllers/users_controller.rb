@@ -15,15 +15,16 @@ class UsersController < ApplicationController
   end
 
   def create
-    @user = User.new(
+    user = User.new(
       nickname: params[:nickname],
       email: params[:email],
       password: params[:password],
       password_confirmation: params[:password_confirmation],
       bio: params[:bio])
-    if @user.save()
-      flash[:success] = "Welcome, #{@user.nickname}!" 
-      redirect_to '/users'
+    if user.save()
+      flash[:success] = "Welcome, #{user.nickname}!"
+      session[:user_id] = user.id
+      redirect_to "/users/#{user.id}"
     else
       flash[:warning] = "Invalid email/password!"
       redirect_to '/users/new'

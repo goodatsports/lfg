@@ -4,6 +4,22 @@ class Api::GamesController < ApplicationController
     render 'index.json.jbuilder'
   end
 
+  def create
+    games = params[:games]
+    puts current_user
+    games.each do |game|
+      local_game = Game.find_by(title: game)
+      if local_game
+        UserGame.create(user_id: current_user.id, game_id: local_game.id)
+        puts "GAME SAVED"
+      else
+        puts "GOTTA QUERY IGDB"
+
+      end
+    end
+    render :json => {response: "OK"}
+  end
+
   def show
     @game = Game.find_by(id: params[:id])
     if(!@game)

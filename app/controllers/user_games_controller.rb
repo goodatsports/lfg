@@ -14,7 +14,5 @@ class UserGamesController < ApplicationController
   end
 
   def new
-    @steam_games = Unirest.get("http://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/?key=#{ENV['STEAM_KEY']}&steamid=#{current_user.steam_id}&include_appinfo=1&format=json").body['response']['games']
-    @game_titles = @steam_games.map {|game| game['name']}
   end
 end
