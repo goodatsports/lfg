@@ -41,8 +41,14 @@ end
 
 # Seed associations between users and games
 300.times do
+  uid = Random.rand(User.count - 1) + 1
+  # Ensure test user has no game associations
+  while uid == 1
+    uid = Random.rand(User.count - 1) + 1
+  end
+
   user_game = UserGame.create(
-    user_id: Random.rand(User.count - 1) + 1,
+    user_id: uid,
     game_id: Random.rand(Game.count - 1) + 1)
 end
 

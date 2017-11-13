@@ -1,27 +1,29 @@
-<div>
-  Username: <%= @user.nickname %>
-</div>
-<div>
-  Email: <%= @user.email %>
-</div>
-<div>
-  Bio: <%= @user.bio %>
-  <% if @user.id == current_user.id %>
-    <% if !@user.steam_id %>
-      <li><%= link_to 'Log In via Steam', '/auth/steam' %></li>
+<div id="user">
+  <div>
+    Username: <%= @user.nickname %>
+  </div>
+  <div>
+    Email: <%= @user.email %>
+  </div>
+  <div>
+    Bio: <%= @user.bio %>
+    <% if @user.id == current_user.id %>
+      <% if !@user.steam_id %>
+        <li><%= link_to 'Log In via Steam', '/auth/steam' %></li>
+      <% end %>
+      <%= form_tag "/users/#{@user.id}", method: :put do %>
+        <%= text_field_tag :bio, @user.bio %>
+        <%= hidden_field_tag(:user_id, @user.id) %>
+        <%= submit_tag "Edit bio"%>
+      <% end %>
     <% end %>
-    <%= form_tag "/users/#{@user.id}", method: :put do %>
-      <%= text_field_tag :bio, @user.bio %>
-      <%= hidden_field_tag(:user_id, @user.id) %>
-      <%= submit_tag "Edit bio"%>
+  </div>
+  <div>
+    Currently playing: 
+    <ul>
+      <% @user.games.each do |game| %>
+      <img src="<%= game.image_url %>"><li><%= link_to game.title, game %></li>
     <% end %>
-  <% end %>
-</div>
-<div>
-  Currently playing: 
-  <ul>
-    <% @user.games.each do |game| %>
-    <li><%= link_to game.title, game %></li>
-  <% end %>
-  </ul>
+    </ul>
+  </div>
 </div>

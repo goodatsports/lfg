@@ -2,39 +2,66 @@
 document.addEventListener("DOMContentLoaded", function(event) { 
   var app = new Vue({
     el: '#usergames',
-    data: { 
-      games: [],
+    data: {
       user_id: '',
-      message: "IT GOOD"
+      games: [],
+      selectedGames: [],
+      search: '',
+      selectedOrderAttr: 'name',
+      orderAscending: false
     },
     mounted: function() {
       $.get("http://localhost:3000/api/users/current", function(response) {
+        this.user_id = response['user'].id;
+      }.bind(this)); 
 
-        // Query local API to get current user's Steam ID
-        this.user_id = response['user']['steam_id'];
-        var api_key = "<%= ENV['STEAM_KEY'] %>";
-
-        // Build Steam API request from user's Steam ID and API key
-        var url = "http://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/?key=" + api_key + "&steamid=" + this.user_id + "&include_appinfo=1&format=json";
-
-        // Get user's Steam games library and save it as a Vue model
-        $.get(url, function(response) {
-          var results = response['response'];
-          steam_games = results['games'];
-          for(var i=0; i < steam_games.length; i++) {
-            game = steam_games[i];
-            img_id = game['img_logo_url'];
-            game['img_logo_url'] = "http://media.steampowered.com/steamcommunity/public/images/apps/" + game['appid'] +"/"+img_id+".jpg";
-          }
-          this.games = steam_games;
+    // Query local API for user's steam library
+      $.get("http://localhost:3000/api/users/current/steam", function(response) {
+        this.games = response;
         }.bind(this));
-      }.bind(this));
     },
     methods: {
-
+      changeOrderAttr: function(attribute) {
+        this.selectedOrderAttr = attribute;
+      },
+      addGames: function() {
+        $.ajax({
+          type: "POST",
+          url: "http://localhost:3000/api/games",
+          data: { "games" : this.selectedGames },
+          success: function() {
+            window.location.replace("http://localhost:3000/users/"+ this.user_id);
+          }.bind(this)
+        });
+      }
     },
     computed: {
-
+      filteredGames: function() {
+        result = []
+        if (this.search == '') result = this.games;
+        else {
+          for (var i = 0; i < this.games.length; i++) {
+            if (this.games[i].name.toLowerCase().indexOf(this.search.toLowerCase()) > -1) {
+              result.push(this.games[i]);
+            }
+          }
+        }
+        return result.sort(function(game1, game2) {
+          if (this.selectedOrderAttr == 'name') {
+            if (this.orderAscending) {
+              return game2[this.selectedOrderAttr].localeCompare(game1[this.selectedOrderAttr]);
+            } else {
+              return game1[this.selectedOrderAttr].localeCompare(game2[this.selectedOrderAttr]);
+            }
+          } else {
+            if (this.orderAscending) {
+              return game1[this.selectedOrderAttr] - game2[this.selectedOrderAttr];
+            } else {
+              return game2[this.selectedOrderAttr] - game1[this.selectedOrderAttr];
+            }
+          }
+        }.bind(this));
+      }
     }
   });
 });

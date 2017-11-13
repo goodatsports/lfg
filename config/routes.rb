@@ -13,6 +13,8 @@ Rails.application.routes.draw do
 
   namespace :api do
     get '/games' => 'games#index'
+    post '/games' => 'games#create'
     get '/users/current' => 'users#show_current'
+    get '/users/current/steam' => 'users#steam_library'
   end
 end

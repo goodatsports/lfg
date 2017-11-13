@@ -1,6 +1,18 @@
 <div id="usergames">
-  {{message}}
+  <input type="text" placeholder="search" v-model="search">
+  Order By: <input v-on:click="changeOrderAttr('playtime_forever')" value="playtime" type="radio" v-model="selectedOrderAttr">
+  <label for="playtime">Time Played</label>
+  <input v-on:click="changeOrderAttr('name')" value="name" type="radio" v-model="selectedOrderAttr">
+  <label for="name">Name</label><br>
+
+  <select v-model="orderAscending">
+    <option v-bind:value="false">Descending</option>
+    <option v-bind:value="true">Ascending</option>
+  </select>
+
+  {{selectedGames.length}} games selected!
+  <button v-on:click="addGames()">Add games</button>
   <ul>
-    <li v-for="game in games"><img v-bind:src="game['img_logo_url']">{{game.name}}</li>
+    <li v-for="game in filteredGames"><img v-bind:src="game['img_logo_url']">{{game.name}} <input type="checkbox" v-model="selectedGames" :value="game.name"></li> 
   </ul>
 </div>
