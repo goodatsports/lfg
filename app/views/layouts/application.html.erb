@@ -76,7 +76,7 @@
               <% if !(current_user) %>
               <a class="nav-link text-xs text-uppercase d-none d-md-block" href="/signup">Sign Up</a> <a class="nav-link text-xs text-uppercase d-none d-md-block" href="/login">Login</a>
               <% else %>
-              <a class="nav-link text-xl text-uppercase d-none d-md-block" href="/users/<%=current_user.id%>"><%= current_user.nickname %></a>
+              <a class="nav-link text-xl text-uppercase d-none d-md-block" href="/users/<%=current_user.id%>"><%= current_user.nickname %></a> |  <a class="nav-link text-m d-none d-md-block" href="/logout">Sign out</a>
               <% end %>
 
             </nav>
@@ -184,9 +184,11 @@
                 Link your games<span class="text-primary-darkend font-weight-bold px-lg-1">/</span>Find friends<span class="text-primary-darkend font-weight-bold px-lg-1">/</span>Play!<span class="text-primary-darkend font-weight-bold px-lg-1"></span>
               </h5>
             </div>
+            <% if !current_user %>
             <div class="col-12 col-lg-5 py-2 text-lg-right">
-              <a href="https://wrapbootstrap.com/theme/appstrap-responsive-website-template-WB0C6D0H4" class="btn btn-lg btn-primary btn-invert btn-rounded py-3 px-4">Get AppStrap Today<i class="fa fa-arrow-right ml-2"></i></a>
+              <a href="/signup" class="btn btn-lg btn-primary btn-invert btn-rounded py-3 px-4">Sign up!<i class="fa fa-arrow-right ml-2"></i></a>
             </div>
+            <% end %>
           </div>
         </div>
       </div>
