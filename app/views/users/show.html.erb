@@ -1,4 +1,8 @@
-<div id="user">
+<div id="user" class="container">
+  <style>
+    img {width:100%;
+         max-width:250px;}
+  </style>
   <div>
     Username: <%= @user.nickname %>
   </div>
@@ -18,12 +22,26 @@
       <% end %>
     <% end %>
   </div>
-  <div>
-    Currently playing: 
-    <ul>
-      <% @user.games.each do |game| %>
-      <img src="<%= game.image_url %>"><li><%= link_to game.title, game %></li>
+  <div class="container-fluid">
+    <h4>Currently playing:</h4>
+      <% @user.games.order(updated_at: :asc).each_slice(3) do |games| %>
+        <div class="row">
+        <% games.each do |game| %>
+          <div class="col-md-offset-4 col-md-4">
+            <div class="card" style="width: 20rem;">
+              <img class="card-img-top" src="<%= game.image_url %>" alt="Card image cap">
+              <div class="card-body">
+                <p class="card-text"><%= link_to game.title, game %></p>
+                <% if current_user.id == @user.id %>
+                 <%= button_to "Delete", "/user_games/#{UserGame.find_by(user_id: @user.id, game_id: game.id).id}", :method=> "delete" %>
+
+                <% end %>
+              </div>
+            </div>
+          </div>
+        <% end %>
+        </div>
     <% end %>
-    </ul>
   </div>
 </div>
+

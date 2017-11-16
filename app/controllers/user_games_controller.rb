@@ -9,6 +9,12 @@ class UserGamesController < ApplicationController
     end
   end
 
+  def destroy
+    user_game = UserGame.find_by(id: params[:id])
+    user_game.destroy
+    redirect_to "/users/#{user_game.user_id}"
+  end
+
   def index
     @games = current_user.games
   end

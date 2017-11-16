@@ -10,6 +10,7 @@ Rails.application.routes.draw do
 
   get '/users/:id/user_games' => 'user_games#index'
   get '/users/:id/user_games/new' => 'user_games#new'
+  delete '/user_games/:id' => 'user_games#destroy'
 
   namespace :api do
     get '/games' => 'games#index'
