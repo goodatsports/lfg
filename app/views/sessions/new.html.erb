@@ -1,6 +1,28 @@
-<h3> Login </h3>
+<div id="content">
+  <div class="container">
+    <!-- Login form -->
+    <form class="form-login form-wrapper form-narrow" action="/login" method="post">
+      <h3 class="title-divider">
+        <span>Login</span> 
+        <small class="mt-4">Not signed up? <a href="pricing.html">Sign up here</a>.</small>
+      </h3>
+      <div class="form-group">
+        <label class="sr-only" for="login-email-page">Email</label>
+        <input type="email" name="email" id="login-email-page" class="form-control email" placeholder="Email">
+      </div>
+      <div class="form-group">
+        <label class="sr-only" for="login-password-page">Password</label>
+        <input type="password" id="login-password-page" name="password" class="form-control password" placeholder="Password">
+      </div>
+      <button type="submit" class="btn btn-primary">Login</button>
+    </form>
+  </div>
+</div>
+
+
+<!-- <h3> Login </h3>
 <%= form_tag '/login', method: :post do %>
   <%= email_field_tag :email, 'email' %>
   <%= password_field_tag :password, 'password' %>
   <%= submit_tag 'Log In!' %>
-<% end %>
+<% end %> -->
