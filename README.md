@@ -7,4 +7,4 @@ Stack includes:
 * Vue.js
 * Postgresql
 
-Please see a full demonstration [here](https://youtu.be/FeXRPoPCgjk?t=2859) (starting from
+Please see a full demonstration [here](https://youtu.be/FeXRPoPCgjk?t=2859) (starting from 47:39)
