@@ -1,24 +1,10 @@
-# README
+# Looking For Group
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Capstone project for [Actualize Bootcamp](https://anyonecanlearntocode.com/) full-stack Ruby-on-Rails course. 
 
-Things you may want to cover:
+Stack includes:
+* Ruby on Rails
+* Vue.js
+* Postgresql
 
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+Please see a full demonstration [here](https://youtu.be/FeXRPoPCgjk?t=2859) (starting from
